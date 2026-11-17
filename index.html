@@ -1,0 +1,295 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffd23f">
+<title>أصدقاء الأرقام</title>
+<style>
+:root{--ink:#4a2c7a;--sun:#ffd23f;--pink:#ff7eb6;--blue:#4cc3ff;--green:#5fd068;--orange:#ff9f43;--purple:#a55eea;--good:#25a35a;--bad:#e5486a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);min-height:100vh;overflow-x:hidden;
+  background:linear-gradient(#bdeaff 0,#e6f8ff 380px,#fff6d6 100%) fixed}
+.cloud{position:absolute;font-size:60px;opacity:.9;animation:drift 14s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+@keyframes drift{from{transform:translateX(-12px)}to{transform:translateX(22px)}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pop{animation:pop .5s}.shake{animation:shake .4s}
+header{position:relative;z-index:1;text-align:center;padding:22px 12px 26px;background:var(--sun);border-bottom:8px solid #ffb800;border-radius:0 0 50% 50%/0 0 34px 34px}
+.rainbow{font-size:38px;letter-spacing:4px}
+h1{margin:4px 0 0;font-size:34px;font-size:clamp(34px,10vw,54px);line-height:1.2;color:#e6366f;text-shadow:3px 3px 0 #fff,5px 5px 0 rgba(0,0,0,.08)}
+.sub{margin:8px 0 0;font-size:18px;font-size:clamp(18px,5vw,24px);font-weight:bold}
+.mascots{font-size:50px;margin-top:6px}
+.mascots span{display:inline-block;animation:bob 2s ease-in-out infinite}
+.mascots span:nth-child(2){animation-delay:.4s}.mascots span:nth-child(3){animation-delay:.8s}
+.stars{display:inline-block;margin-top:10px;background:#fff;border:4px solid #ffb800;border-radius:40px;padding:4px 20px;font-size:26px;font-weight:bold}
+main{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:6px 12px 50px}
+.levels{display:flex;gap:10px;justify-content:center;margin:18px 0 4px;flex-wrap:wrap}
+.levels button{font-family:inherit;font-size:20px;font-weight:bold;padding:12px 20px;border-radius:30px;border:4px solid #fff;color:#fff;background:#b8a5d9;box-shadow:0 6px 0 #8f7bbd;cursor:pointer}
+.levels button.on{background:var(--pink);box-shadow:0 6px 0 #d1568f;transform:scale(1.05)}
+.card{background:#fff;border:5px solid #fff;border-radius:34px;padding:18px 14px;margin:20px 0;box-shadow:0 0 0 4px var(--c,#ffd23f),0 10px 0 4px rgba(74,44,122,.12)}
+.card h2{margin:-34px auto 12px;width:fit-content;max-width:100%;background:var(--c,#ffd23f);color:#fff;font-size:20px;font-size:clamp(20px,5.5vw,28px);padding:8px 22px;border-radius:30px;text-align:center;text-shadow:1px 2px 0 rgba(0,0,0,.2)}
+.hello{display:flex;gap:12px;align-items:center}
+.hello .face{font-size:64px;animation:bob 2s ease-in-out infinite}
+.bubble{flex:1;background:#fff3c4;border:4px dashed #ffb800;border-radius:26px;padding:12px 14px;font-size:20px;line-height:1.8;font-weight:bold}
+.say{font-family:inherit;margin-top:8px;background:var(--blue);color:#fff;border:0;border-radius:24px;padding:8px 18px;font-size:19px;font-weight:bold;box-shadow:0 5px 0 #2a8fc4;cursor:pointer}
+.say:active,.go:active,.ch button:active{transform:translateY(4px)}
+.houses{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.house{font-family:inherit;border:4px solid #fff;border-radius:24px 24px 18px 18px;padding:6px 2px 8px;text-align:center;cursor:pointer;color:#3b2455;font-weight:bold;box-shadow:0 6px 0 rgba(0,0,0,.18);min-width:0}
+.house .roof{font-size:34px;line-height:1}
+.house b{display:block;font-size:14px;font-size:clamp(14px,3.6vw,18px);line-height:1.3}
+.house.sel{outline:5px solid var(--ink);transform:scale(1.06)}
+.info{margin-top:14px;background:#f1ecff;border:4px solid #cbb9f5;border-radius:26px;padding:12px 14px;font-size:18px;font-size:clamp(18px,4.6vw,22px);line-height:1.9;text-align:center;font-weight:bold}
+.info .v{color:#e6366f;font-size:1.25em}
+.digits{direction:ltr;display:flex;gap:6px;justify-content:center;margin:8px 0 14px}
+.dg{flex:0 1 52px;min-width:0;height:66px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:#f3f0ff;border:3px solid #cbb9f5;font-size:26px;font-size:clamp(26px,8vw,40px);font-weight:bold}
+.dg.hi{background:var(--pink);border-color:#d1568f;color:#fff;animation:bob 1.2s ease-in-out infinite}
+.q{text-align:center;font-size:20px;font-size:clamp(20px,5vw,26px);font-weight:bold;line-height:1.6}
+.q em{font-style:normal;color:#fff;background:var(--pink);border-radius:12px;padding:0 12px;display:inline-block}
+.ch{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.ch button{font-family:inherit;font-weight:bold;font-size:22px;font-size:clamp(22px,6vw,32px);padding:14px 4px;min-height:74px;border-radius:24px;background:#fff;color:var(--ink);border:4px solid #b9a6f0;box-shadow:0 6px 0 #b9a6f0;cursor:pointer;min-width:0}
+.ch button.right{background:#c9f5d6;border-color:var(--good);box-shadow:0 6px 0 var(--good)}
+.ch button.wrong{background:#ffdbe3;border-color:var(--bad);box-shadow:0 6px 0 var(--bad);opacity:.6}
+.msg{text-align:center;font-size:22px;font-size:clamp(22px,5.5vw,28px);font-weight:bold;min-height:46px;margin:12px 0 4px}
+.msg.good{color:var(--good)}.msg.bad{color:var(--bad)}
+.go{display:block;margin:6px auto 0;font-family:inherit;background:var(--pink);color:#fff;border:0;border-radius:28px;padding:14px 34px;font-size:24px;font-weight:bold;box-shadow:0 6px 0 #d1568f;cursor:pointer}
+.go.hide{display:none}
+.builder{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.col{border-radius:22px;padding:8px 2px 10px;text-align:center;border:4px solid #fff;box-shadow:0 5px 0 rgba(0,0,0,.15);min-width:0}
+.col h3{margin:0;font-size:14px;font-size:clamp(14px,3.6vw,17px);line-height:1.3;min-height:2.6em;display:flex;align-items:center;justify-content:center}
+.col .n{font-size:40px;font-weight:bold;line-height:1.2}
+.col button{font-family:inherit;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:28px;font-weight:bold;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.2);margin:3px;cursor:pointer;padding:0;line-height:1}
+.col button:active{transform:translateY(3px)}
+.built{text-align:center;font-size:26px;font-size:clamp(26px,8vw,40px);font-weight:bold;color:#e6366f;margin:12px 0 0;direction:ltr}
+footer{text-align:center;font-weight:bold;opacity:.7;padding:10px}
+@media(max-width:380px){.col button{width:38px;height:38px}}
+.levels button{margin:4px}.hello .face{margin-left:10px}.digits .dg{margin:0 3px}.ch button{margin:0}
+.card h2{display:table;margin-left:auto;margin-right:auto}
+.houses,.ch,.builder{grid-gap:10px}
+</style>
+</head>
+<body>
+<span class="cloud" style="top:20px;right:4%">☁️</span>
+<span class="cloud" style="top:150px;left:3%;animation-delay:-5s">☁️</span>
+
+<header>
+  <div class="rainbow">🌈⭐🎈⭐🌈</div>
+  <h1>أهلًا يا أصدقاء!</h1>
+  <p class="sub">هيا نلعب مع منازل الأرقام</p>
+  <div class="mascots"><span>🐥</span><span>🦄</span><span>🐻</span></div>
+  <div class="stars" id="stars" aria-live="polite">⭐ ٠</div>
+</header>
+
+<main>
+  <div class="levels" id="levels">
+    <button type="button" data-p="4" class="on">🏠 حتى الآلاف</button>
+    <button type="button" data-p="7">🏰 حتى الملايين</button>
+  </div>
+
+  <section class="card" style="--c:#ff9f43">
+    <h2>🏘️ منازل الأرقام</h2>
+    <div class="hello">
+      <div class="face">🐥</div>
+      <div class="bubble">أنا كتكوت الأرقام! لكل رقم بيت يسكن فيه، وبيته يقول لنا كم قيمته. اضغط على أي بيت!
+        <br><button class="say" type="button" id="sayHi">🔊 اسمع</button></div>
+    </div>
+    <div class="houses" id="houses"></div>
+    <div class="info" id="info">اضغط على بيت لتعرف قيمة الرقم الساكن فيه 👆</div>
+  </section>
+
+  <section class="card" style="--c:#ff7eb6">
+    <h2>🎯 ما قيمة الرقم الملوّن؟</h2>
+    <div class="digits" id="d1"></div>
+    <div class="q" id="q1"></div>
+    <div class="ch" id="c1"></div>
+    <div class="msg" id="m1" aria-live="polite"></div>
+    <button class="go hide" type="button" id="n1">التالي ➡️</button>
+  </section>
+
+  <section class="card" style="--c:#4cc3ff">
+    <h2>🏡 في أي بيت يسكن؟</h2>
+    <div class="digits" id="d2"></div>
+    <div class="q" id="q2"></div>
+    <div class="ch" id="c2"></div>
+    <div class="msg" id="m2" aria-live="polite"></div>
+    <button class="go hide" type="button" id="n2">التالي ➡️</button>
+  </section>
+
+  <section class="card" style="--c:#5fd068">
+    <h2>🧱 ابنِ العدد</h2>
+    <div class="q">ابنِ العدد: <em id="t3">٠</em></div>
+    <div class="builder" id="b3"></div>
+    <div class="built" id="v3">٠</div>
+    <div class="msg" id="m3" aria-live="polite"></div>
+    <button class="go" type="button" id="k3">✔️ تحقّق</button>
+    <button class="go hide" type="button" id="n3">عدد جديد ➡️</button>
+  </section>
+
+  <footer>صُنع بحب من قبل الطالبة فجر فهد العيلي 💖<br>رابع / ٣</footer>
+</main>
+
+<script>
+(function(){
+  var DIG='٠١٢٣٤٥٦٧٨٩';
+  function ar(s){return String(s).replace(/[0-9]/g,function(d){return DIG.charAt(+d);});}
+  function fmt(n){return ar(String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'٬'));}
+  function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function pick(a){return a[rand(0,a.length-1)];}
+  function shuffle(a){return a.sort(function(){return Math.random()-.5;});}
+  function $(id){return document.getElementById(id);}
+
+  var PL=[
+    {name:'الآحاد',     one:'واحد',        c:'#ff8a8a',e:'🍎'},
+    {name:'العشرات',    one:'عشرة',        c:'#ffb85c',e:'🍊'},
+    {name:'المئات',     one:'مئة',         c:'#ffe066',e:'🍋'},
+    {name:'الآلاف',     one:'ألف',         c:'#7be495',e:'🍏'},
+    {name:'عشرات الآلاف',one:'عشرة آلاف',  c:'#74c0fc',e:'🫐'},
+    {name:'مئات الآلاف',one:'مئة ألف',     c:'#c3a6ff',e:'🍇'},
+    {name:'الملايين',   one:'مليون',       c:'#ffa6d0',e:'🍓'}
+  ];
+  var P=4, stars=0;
+
+  var praise=['أحسنت! 🎉','ممتاز! 🌟','رائع يا بطل! 👏','برافو! 🥳','يا سلام! 🦄'];
+  var retry=['حاول مرة ثانية 💪','قريب! جرّب مرة أخرى 🙂','فكّر في بيت الرقم 🧐'];
+
+  function addStar(){stars++;var s=$('stars');s.textContent='⭐ '+ar(stars);s.classList.remove('pop');void s.offsetWidth;s.classList.add('pop');}
+  function speak(t){try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';u.rate=.85;window.speechSynthesis.speak(u);}catch(e){}}
+  function bad(m){m.textContent=pick(retry);m.className='msg bad';m.classList.remove('shake');void m.offsetWidth;m.classList.add('shake');}
+  function good(m){m.textContent=pick(praise);m.className='msg good';addStar();}
+
+  /* ---------- المنازل ---------- */
+  function drawHouses(){
+    var h=$('houses'),i;h.innerHTML='';
+    for(i=0;i<P;i++){(function(i){
+      var b=document.createElement('button');b.type='button';b.className='house';b.style.background=PL[i].c;
+      b.innerHTML='<span class="roof">'+PL[i].e+'🏠</span><b>'+PL[i].name+'</b>';
+      b.addEventListener('click',function(){
+        var all=h.querySelectorAll('.house');for(var k=0;k<all.length;k++)all[k].classList.remove('sel');
+        b.classList.add('sel');
+        var v=Math.pow(10,i);
+        $('info').innerHTML='هذا بيت <b>'+PL[i].name+'</b> 🏠<br>الرقم ٣ هنا قيمته <span class="v">'+fmt(3*v)+'</span><br>وكل ١ هنا يساوي '+PL[i].one;
+        speak('هذا بيت '+PL[i].name);
+      });
+      h.appendChild(b);
+    })(i);}
+    $('info').textContent='اضغط على بيت لتعرف قيمة الرقم الساكن فيه 👆';
+  }
+  $('sayHi').addEventListener('click',function(){speak('أهلا يا أصدقاء! لكل رقم بيت يسكن فيه، وبيته يقول لنا كم قيمته.');});
+
+  /* ---------- أدوات مشتركة للعبتين 1 و 2 ---------- */
+  function newNumber(){
+    var len=P===4?rand(3,4):rand(5,7);
+    var s=String(rand(1,9));
+    for(var i=1;i<len;i++)s+=rand(0,9);
+    var pos=-1,tries=0;
+    do{pos=rand(0,len-1);tries++;}while(s.charAt(len-1-pos)==='0'&&tries<50);
+    if(s.charAt(len-1-pos)==='0')pos=len-1;
+    return {s:s,len:len,pos:pos,d:+s.charAt(len-1-pos)};
+  }
+  function drawDigits(el,x){
+    el.innerHTML='';
+    for(var i=0;i<x.len;i++){var d=document.createElement('div');d.className='dg'+((x.len-1-i)===x.pos?' hi':'');d.textContent=ar(x.s.charAt(i));el.appendChild(d);}
+  }
+  function fillChoices(el,items,correct,onRight,onWrong){
+    el.innerHTML='';
+    items.forEach(function(it){
+      var b=document.createElement('button');b.type='button';b.textContent=it.t;
+      b.addEventListener('click',function(){
+        if(it.v===correct){
+          b.classList.add('right');
+          var all=el.querySelectorAll('button');for(var k=0;k<all.length;k++)all[k].disabled=true;
+          onRight();
+        }else{b.classList.add('wrong');b.disabled=true;onWrong();}
+      });
+      el.appendChild(b);
+    });
+  }
+
+  /* ---------- لعبة 1: القيمة ---------- */
+  function game1(){
+    var x=newNumber();
+    drawDigits($('d1'),x);
+    $('q1').innerHTML='ما قيمة الرقم <em>'+ar(x.d)+'</em> الملوّن؟';
+    var correct=x.d*Math.pow(10,x.pos),set=[correct],k;
+    var ks=[];for(k=0;k<x.len;k++)if(k!==x.pos)ks.push(k);
+    shuffle(ks);
+    for(var i=0;i<ks.length&&set.length<4;i++){var v=x.d*Math.pow(10,ks[i]);if(set.indexOf(v)<0)set.push(v);}
+    while(set.length<4){var r=rand(1,9)*Math.pow(10,rand(0,x.len-1));if(set.indexOf(r)<0)set.push(r);}
+    shuffle(set);
+    $('m1').textContent='';$('m1').className='msg';$('n1').classList.add('hide');
+    fillChoices($('c1'),set.map(function(v){return{v:v,t:fmt(v)};}),correct,
+      function(){good($('m1'));$('n1').classList.remove('hide');},
+      function(){bad($('m1'));});
+  }
+  $('n1').addEventListener('click',game1);
+
+  /* ---------- لعبة 2: اسم المنزلة ---------- */
+  function game2(){
+    var x=newNumber();
+    drawDigits($('d2'),x);
+    $('q2').innerHTML='في أي بيت يسكن الرقم <em>'+ar(x.d)+'</em> الملوّن؟';
+    var idx=[],i;for(i=0;i<x.len;i++)idx.push(i);
+    var others=shuffle(idx.filter(function(k){return k!==x.pos;})).slice(0,3);
+    var set=shuffle([x.pos].concat(others));
+    $('m2').textContent='';$('m2').className='msg';$('n2').classList.add('hide');
+    fillChoices($('c2'),set.map(function(k){return{v:k,t:PL[k].name};}),x.pos,
+      function(){good($('m2'));$('n2').classList.remove('hide');},
+      function(){bad($('m2'));});
+  }
+  $('n2').addEventListener('click',game2);
+
+  /* ---------- لعبة 3: ابنِ العدد ---------- */
+  var tgt=0,st=[],done3=false;
+  function value3(){var v=0;for(var i=0;i<P;i++)v+=st[i]*Math.pow(10,i);return v;}
+  function show3(){
+    for(var i=0;i<P;i++){var e=$('n3_'+i);if(e)e.textContent=ar(st[i]);}
+    $('v3').textContent=fmt(value3());
+  }
+  function game3(){
+    var len=P===4?rand(2,4):rand(4,7),s=String(rand(1,9));
+    for(var i=1;i<len;i++)s+=rand(0,9);
+    tgt=+s;done3=false;st=[];for(i=0;i<P;i++)st.push(0);
+    $('t3').textContent=fmt(tgt);
+    var b=$('b3');b.innerHTML='';
+    for(i=0;i<P;i++){(function(i){
+      var c=document.createElement('div');c.className='col';c.style.background=PL[i].c;
+      c.innerHTML='<h3>'+PL[i].name+'</h3><div class="n" id="n3_'+i+'">٠</div>'+
+        '<button type="button" aria-label="زِد">+</button><button type="button" aria-label="أنقِص">−</button>';
+      var bs=c.querySelectorAll('button');
+      bs[0].addEventListener('click',function(){if(!done3&&st[i]<9){st[i]++;show3();}});
+      bs[1].addEventListener('click',function(){if(!done3&&st[i]>0){st[i]--;show3();}});
+      b.appendChild(c);
+    })(i);}
+    $('m3').textContent='';$('m3').className='msg';
+    $('n3').classList.add('hide');$('k3').classList.remove('hide');
+    show3();
+  }
+  $('k3').addEventListener('click',function(){
+    if(done3)return;
+    if(value3()===tgt){done3=true;good($('m3'));$('k3').classList.add('hide');$('n3').classList.remove('hide');}
+    else bad($('m3'));
+  });
+  $('n3').addEventListener('click',game3);
+
+  /* ---------- المستويات ---------- */
+  function start(){drawHouses();game1();game2();game3();
+    var b=$('houses');b.style.gridTemplateColumns='repeat(4,1fr)';
+    $('b3').style.gridTemplateColumns='repeat(4,1fr)';}
+  var lb=$('levels').querySelectorAll('button');
+  for(var i=0;i<lb.length;i++){(function(btn){
+    btn.addEventListener('click',function(){
+      P=+btn.getAttribute('data-p');
+      for(var k=0;k<lb.length;k++)lb[k].classList.remove('on');
+      btn.classList.add('on');start();
+    });
+  })(lb[i]);}
+  start();
+})();
+</script>
+</body>
+</html>
+
+</body></html>
